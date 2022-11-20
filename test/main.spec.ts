@@ -26,15 +26,19 @@ describe('Calculate Ride', () => {
   })
 
   it('Should not calculate a ride if the distance is invalid', () => {
-    expect(calculateRide([
+    const segments = [
       { distance: -10, date: new Date("2021-03-01T10:00:00") }
-    ])).toBe(-1)
+    ]
+
+    expect(() => calculateRide(segments)).toThrow(new Error('Invalid Distance'))
   })
 
   it('Should not calculate a ride if the date is invalid', () => {
-    expect(calculateRide([
+    const segments = [
       { distance: 10, date: new Date("abcdef") }
-    ])).toBe(-2)
+    ]
+
+    expect(() => calculateRide(segments)).toThrow(new Error('Invalid Date'))
   })
 
   it('Should calculate a ride for the first day of the month', () => {

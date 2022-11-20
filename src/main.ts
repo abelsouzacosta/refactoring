@@ -46,10 +46,10 @@ export function calculateRide (segments) {
 					}
 				}
 			} else {
-				return -2;
+				throw new Error('Invalid Date')
 			}
 		} else {
-			return -1;
+			throw new Error('Invalid Distance')
 		}
 		
 	}
