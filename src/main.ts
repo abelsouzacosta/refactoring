@@ -11,6 +11,15 @@ function isOvernight(date) {
 	return date.getHours() >= START_OVERNIGHT || date.getHours() <= END_OVERNIGHT ? true : false
 }
 
+
+function isValidDistance(distance) {
+	return distance != null && distance != undefined && typeof distance === "number" && distance > 0 ? true : false;
+}
+
+function isValidDate(date) {
+	return date != null && date != undefined && date instanceof Date && date.toString() !== "Invalid Date" ? true : false;
+}
+
 // calculate ride
 export function calculateRide (segments) {
 	let fare = 0;
@@ -21,8 +30,8 @@ export function calculateRide (segments) {
 	
 	
 	for (const segment of segments) {
-		if (segment.distance != null && segment.distance != undefined && typeof segment.distance === "number" && segment.distance > 0) {
-			if (segment.date != null && segment.date != undefined && segment.date instanceof Date && segment.date.toString() !== "Invalid Date") {
+		if (isValidDistance(segment.distance)) {
+			if (isValidDate(segment.date)) {
 				if (isOvernight(segment.date)) {
 					if (isSunday(segment.date)) {
 						fare += segment.distance * OVERNIGHT_SUNDAY_FARE;
