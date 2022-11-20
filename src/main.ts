@@ -1,7 +1,7 @@
 // @ts-nocheck
 // calculate ride
 export function calculateRide (segments) {
-	let result = 0;
+	let fare = 0;
 	for (const segment of segments) {
 		if (segment.distance != null && segment.distance != undefined && typeof segment.distance === "number" && segment.distance > 0) {
 			if (segment.date != null && segment.date != undefined && segment.date instanceof Date && segment.date.toString() !== "Invalid Date") {
@@ -13,20 +13,20 @@ export function calculateRide (segments) {
 					// not sunday
 					if (segment.date.getDay() !== 0) {
 						
-						result += segment.distance * 3.90;
+						fare += segment.distance * 3.90;
 					// sunday
 					} else {
-						result += segment.distance * 5;
+						fare += segment.distance * 5;
 	
 					}
 				} else {
 					// sunday
 					if (segment.date.getDay() === 0) {
 			
-						result += segment.distance * 2.9;
+						fare += segment.distance * 2.9;
 			
 					} else {
-						result += segment.distance * 2.10;
+						fare += segment.distance * 2.10;
 					}
 				}
 			} else {
@@ -40,10 +40,10 @@ export function calculateRide (segments) {
 		}
 		
 	}
-	if (result < 10) {
+	if (fare < 10) {
 		return 10;
 	} else {
-		return result;
+		return fare;
 	}
 }
 
