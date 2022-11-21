@@ -67,3 +67,5 @@ export function calculateRide (segments) {
 	return fare <= MINUMUM_FARE ? MINUMUM_FARE : fare;
 }
 
+export class Ride {}
+

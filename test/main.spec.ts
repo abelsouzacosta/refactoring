@@ -48,7 +48,7 @@ describe('Calculate Ride', () => {
     expect(() => calculateRide(segments)).toThrow(new Error('Invalid Date'))
   })
 
-  it('should calculate a ride for the first day of the month', () => {
+  it('should calculate a ride with the minimum fare', () => {
     expect(calculateRide([
       { distance: 3, date: new Date("2021-03-01T10:00:00") }
     ])).toBe(10)
