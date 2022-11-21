@@ -1,4 +1,5 @@
 import Ride from '../src/Ride'
+import { Segment } from '../src/Segment';
 
 describe('Ride', () => {
   let ride: Ride;
@@ -12,7 +13,7 @@ describe('Ride', () => {
   })
 
   it('Should calculate a ride for the first day in the month', () => {
-    const segment = {distance: 10, date: new Date("2022-12-01T10:00:00")};
+    const segment = new Segment(10, new Date("2022-12-01T10:00:00"));
 
     ride.addSegments(segment);
 
@@ -20,7 +21,7 @@ describe('Ride', () => {
   });
 
   it('Should calculate a ride for sunday', () => {
-    const segment = {distance: 10, date: new Date("2022-12-04T10:00:00")};
+    const segment = new Segment(10, new Date("2022-12-04T10:00:00"))
 
     ride.addSegments(segment);
 
@@ -28,7 +29,7 @@ describe('Ride', () => {
   });
 
   it('Should calculate a ride for sunday overnight', () => {
-    const segment = {distance: 10, date: new Date("2022-12-04T23:00:00")};
+    const segment = new Segment(10, new Date("2022-12-04T23:00:00"));
 
     ride.addSegments(segment);
 
@@ -36,7 +37,7 @@ describe('Ride', () => {
   })
 
   it('Should calculate a ride for day in the week overnight', () => {
-    const segment = {distance: 10, date: new Date("2022-11-21T23:00:00")};
+    const segment = new Segment(10, new Date("2022-11-21T23:00:00"));
 
     ride.addSegments(segment);
 
@@ -44,7 +45,7 @@ describe('Ride', () => {
   })
 
   it('Should calculate a ride for a day in the week not overnight', () => {
-    const segment = {distance: 10, date: new Date("2022-11-21T15:00:00")};
+    const segment = new Segment(10, new Date("2022-11-21T15:00:00"));
 
     ride.addSegments(segment);
 
@@ -52,7 +53,7 @@ describe('Ride', () => {
   })
 
   it('Should calculate a ride for the minimum fare', () => {
-    const segment = {distance: 3, date: new Date("2022-11-21T15:00:00")};
+    const segment = new Segment(3, new Date("2022-11-21T15:00:00"));
 
     ride.addSegments(segment);
 
@@ -60,7 +61,7 @@ describe('Ride', () => {
   })
 
   it('Should not calculate a ride if the distance given is invalid', () => {
-    const segment = {distance: -10, date: new Date("2022-11-21T15:00:00")};
+    const segment = new Segment(-10, new Date("2022-11-21T15:00:00"));
 
     ride.addSegments(segment);
 
@@ -68,7 +69,7 @@ describe('Ride', () => {
   })
     
   it('Should not calculate a ride if the distance given is invalid', () => {
-    const segment = {distance: 10, date: new Date("invalid")};
+    const segment = new Segment(10, new Date("invalid"))
 
     ride.addSegments(segment);
 
