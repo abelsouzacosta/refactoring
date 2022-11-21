@@ -37,23 +37,31 @@ export function calculateRide (segments) {
 	for (const segment of segments) {
 		if (!isValidDistance(segment.distance)) throw new Error(`Invalid Distance`)
 		if (!isValidDate(segment.date))  throw new Error(`Invalid Date`)
+
 		if (isFirstDayOfMonth(segment.date)) {
 			fare += segment.distance * FIRST_DAY_FARE
-		} else {
-				if (isOvernight(segment.date)) {
-					if (isSunday(segment.date)) {
-						fare += segment.distance * OVERNIGHT_SUNDAY_FARE;
-					} else {
-						fare += segment.distance * OVERNIGHT_FARE;
-					}
-				} else {
-					if (isSunday(segment.date)) {
-						fare += segment.distance * SUNDAY_FARE;
-					} else {
-						fare += segment.distance * DAILY_FARE;
-					}
-				}
-			}
+			continue;
+		} 
+
+		if (isOvernight(segment.date) && isSunday(segment.date)) {
+			fare += segment.distance * OVERNIGHT_SUNDAY_FARE;
+			continue;
+		}
+
+		if (isOvernight(segment.date) && !isSunday(segment.date)) {
+			fare += segment.distance * OVERNIGHT_FARE;
+			continue;
+		}
+
+		if (!isOvernight(segment.date) && !isSunday(segment.date)) {
+			fare += segment.distance * DAILY_FARE;
+			continue;
+		}
+
+		if (!isOvernight(segment.date) && isSunday(segment.date)) {
+			fare += segment.distance * SUNDAY_FARE;
+			continue;
+		}
 	}
 	if (fare < MINUMUM_FARE) {
 		return MINUMUM_FARE;
