@@ -30,8 +30,8 @@ export function calculateRide (segments) {
 	const MINUMUM_FARE = 10;
 	
 	for (const segment of segments) {
-		if (isValidDistance(segment.distance)) {
-			if (isValidDate(segment.date)) {
+		if (!isValidDistance(segment.distance)) throw new Error(`Invalid Distance`)
+			if (!isValidDate(segment.date))  throw new Error(`Invalid Date`)
 				if (isOvernight(segment.date)) {
 					if (isSunday(segment.date)) {
 						fare += segment.distance * OVERNIGHT_SUNDAY_FARE;
@@ -45,12 +45,6 @@ export function calculateRide (segments) {
 						fare += segment.distance * DAILY_FARE;
 					}
 				}
-			} else {
-				throw new Error('Invalid Date')
-			}
-		} else {
-			throw new Error('Invalid Distance')
-		}
 	}
 	if (fare < MINUMUM_FARE) {
 		return MINUMUM_FARE;
