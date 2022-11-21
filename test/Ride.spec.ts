@@ -59,20 +59,4 @@ describe('Ride', () => {
 
     expect(ride.calculateFare()).toBe(ride.MINUMUM_FARE);
   })
-
-  it('Should not calculate a ride if the distance given is invalid', () => {
-    const segment = new Segment(-10, new Date("2022-11-21T15:00:00"));
-
-    ride.addSegments(segment);
-
-    expect(() => ride.calculateFare()).toThrow(new Error(`Invalid Distance`))
-  })
-    
-  it('Should not calculate a ride if the distance given is invalid', () => {
-    const segment = new Segment(10, new Date("invalid"))
-
-    ride.addSegments(segment);
-
-    expect(() => ride.calculateFare()).toThrow(new Error(`Invalid Date`))
-  })
 })
