@@ -29,7 +29,6 @@ export function calculateRide (segments) {
 	const DAILY_FARE = 2.10;
 	const MINUMUM_FARE = 10;
 	
-	
 	for (const segment of segments) {
 		if (isValidDistance(segment.distance)) {
 			if (isValidDate(segment.date)) {
@@ -52,7 +51,6 @@ export function calculateRide (segments) {
 		} else {
 			throw new Error('Invalid Distance')
 		}
-		
 	}
 	if (fare < MINUMUM_FARE) {
 		return MINUMUM_FARE;
