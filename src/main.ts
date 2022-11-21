@@ -27,6 +27,7 @@ export function calculateRide (segments) {
 	const OVERNIGHT_SUNDAY_FARE = 5;
 	const SUNDAY_FARE = 2.9;
 	const DAILY_FARE = 2.10;
+	const MINUMUM_FARE = 10;
 	
 	
 	for (const segment of segments) {
@@ -53,8 +54,8 @@ export function calculateRide (segments) {
 		}
 		
 	}
-	if (fare < 10) {
-		return 10;
+	if (fare < MINUMUM_FARE) {
+		return MINUMUM_FARE;
 	} else {
 		return fare;
 	}
