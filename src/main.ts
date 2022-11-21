@@ -63,10 +63,7 @@ export function calculateRide (segments) {
 			continue;
 		}
 	}
-	if (fare < MINUMUM_FARE) {
-		return MINUMUM_FARE;
-	} else {
-		return fare;
-	}
+	
+	return fare <= MINUMUM_FARE ? MINUMUM_FARE : fare;
 }
 
