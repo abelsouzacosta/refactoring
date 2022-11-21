@@ -1,9 +1,16 @@
 import { calculateRide } from "../src/main";
 
 describe('Calculate Ride', () => {
-  it('should calculate a ride for a day in the week not overnight', () => {
+
+  it('should calculate a ride for the first day of the month', () => {
     expect(calculateRide([
       { distance: 10, date: new Date("2021-03-01T10:00:00") }
+    ])).toBe(15)
+  })
+
+  it('should calculate a ride for a day in the week not overnight', () => {
+    expect(calculateRide([
+      { distance: 10, date: new Date("2021-03-02T10:00:00") }
     ])).toBe(21)
   })
 
