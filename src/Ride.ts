@@ -21,36 +21,27 @@ export default class Ride {
 
   calculateFare() {
     for (const segment of this.segments) {
-      if (segment.isFirstDayOfMonth(segment.date)) {
+      if (segment.isFirstDayOfMonth()) {
         this.fare += segment.distance * this.FIRST_DAY_FARE;
         continue;
       }
 
-      if (segment.isOvernight(segment.date) && segment.isSunday(segment.date)) {
+      if (segment.isOvernight() && segment.isSunday()) {
         this.fare += segment.distance * this.OVERNIGHT_SUNDAY_FARE;
         continue;
       }
 
-      if (
-        segment.isOvernight(segment.date) &&
-        !segment.isSunday(segment.date)
-      ) {
+      if (segment.isOvernight() && !segment.isSunday()) {
         this.fare += segment.distance * this.OVERNIGHT_FARE;
         continue;
       }
 
-      if (
-        !segment.isOvernight(segment.date) &&
-        !segment.isSunday(segment.date)
-      ) {
+      if (!segment.isOvernight() && !segment.isSunday()) {
         this.fare += segment.distance * this.DAILY_FARE;
         continue;
       }
 
-      if (
-        !segment.isOvernight(segment.date) &&
-        segment.isSunday(segment.date)
-      ) {
+      if (!segment.isOvernight() && segment.isSunday()) {
         this.fare += segment.distance * this.SUNDAY_FARE;
         continue;
       }

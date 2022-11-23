@@ -1,44 +1,40 @@
-import { Segment } from '../src/Segment';
+import { Segment } from "../src/Segment";
 
-describe('Segment', () => {
-  let segment: Segment;
-  describe('Methods', () => {
-    beforeEach(() => {
-      segment =  new Segment(10, new Date("2022-11-21T15:00:00"));
+describe("Segment", () => {
+  describe("constructor", () => {
+    it("Should create a valid instance if a valid distance and a valid date is given", () => {
+      let distance = 10;
+      let date = new Date("2022-12-25T10:00:00");
+      let segment = new Segment(distance, date);
+
+      expect(segment.date).toBe(date);
+      expect(segment.distance).toBe(distance);
     });
 
-    it('Should return true if is overnight', () => {
-      expect(segment.isOvernight(new Date("2022-11-21T23:00:00"))).toBe(true);
+    it("Should thorw an exception with invalid date given", () => {
+      expect(() => new Segment(10, new Date("invalid"))).toThrow(
+        new Error(`Invalid Date`)
+      );
     });
 
-    it('Should return false if is not overnight', () => {
-      expect(segment.isOvernight(new Date("2022-11-21T15:00:00"))).toBe(false)
+    it("Should thorw an exception with invalid distance given", () => {
+      expect(() => new Segment(-10, new Date("2022-12-25T10:00:00"))).toThrow(
+        new Error(`Invalid Distance`)
+      );
+    });
+  });
+
+  describe("Validation Methods", () => {
+    it("Should return true with date in the first day of month", () => {
+      let segment = new Segment(10, new Date("2023-01-01T10:00:00"));
+
+      expect(segment.isFirstDayOfMonth()).toBe(true);
     });
 
-    it('Should return true if is sunday', () => {
-      expect(segment.isSunday(new Date("2022-12-25T23:00:00"))).toBe(true)
+    it("Should return false with date not in the first day of the month", () => {
+      let segment = new Segment(10, new Date("2023-01-02T10:00:00"));
+
+      expect(segment.isFirstDayOfMonth()).toBe(false);
     });
-
-    it('Should return false if is not sunday', () => {
-      expect(segment.isSunday(new Date("2022-11-25T23:00:00"))).toBe(false)
-    });
-
-    it('Should return true if is first day of the month', () => {
-      expect(segment.isFirstDayOfMonth(new Date("2022-12-01T23:00:00"))).toBe(true);
-    });
-
-    it('Should return false if is not first day of month', () => {
-      expect(segment.isFirstDayOfMonth(new Date("2022-12-25T23:00:00"))).toBe(false);
-    })
-  })
-
-  describe('constructor', () => {
-    it('Should throw an error if the distance given is invalid', () => {
-      expect(() => segment = new Segment(-10, new Date("2022-12-25T23:00:00"))).toThrow(new Error(`Invalid Distance`));
-    });
-
-    it('Should throw an error if the date given is invalid', () => {
-      expect(() => segment = new Segment(10, new Date("invalid"))).toThrow(new Error(`Invalid Date`));
-    })
-  })
+  });
 });
