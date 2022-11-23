@@ -36,5 +36,29 @@ describe("Segment", () => {
 
       expect(segment.isFirstDayOfMonth()).toBe(false);
     });
+
+    it("Should return true with date in sunday", () => {
+      let segment = new Segment(10, new Date("2022-11-27T10:00:00"));
+
+      expect(segment.isSunday()).toBe(true);
+    });
+
+    it("Should return false with date in sunday", () => {
+      let segment = new Segment(10, new Date("2022-11-27T10:00:00"));
+
+      expect(segment.isSunday()).toBe(true);
+    });
+
+    it("Should return true with date in overnight", () => {
+      let segment = new Segment(10, new Date("2022-11-27T23:00:00"));
+
+      expect(segment.isOvernight()).toBe(true);
+    });
+
+    it("Should return false with date not in overnight", () => {
+      let segment = new Segment(10, new Date("2022-11-27T14:00:00"));
+
+      expect(segment.isOvernight()).toBe(false);
+    });
   });
 });
