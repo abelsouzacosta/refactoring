@@ -1,12 +1,15 @@
+import { FirstDayOfMonthFareCalculator } from "./calculators/FirstDayOfMonthFareCalculator";
+import { NormalFareCalculator } from "./calculators/NormalFareCalculator";
+import { OvernightFareCalculator } from "./calculators/OvernightFareCalculator";
+import { OvernightSundayFareCalculator } from "./calculators/OvernightSundayFareCalculator";
+import { SundayFareCalculator } from "./calculators/SundayFareCalculator";
 import { Segment } from "./Segment";
 
 export default class Ride {
   segments: Segment[];
   fare: number;
-  OVERNIGHT_FARE = 3.9;
   OVERNIGHT_SUNDAY_FARE = 5;
   SUNDAY_FARE = 2.9;
-  DAILY_FARE = 2.1;
   FIRST_DAY_FARE = 1.5;
   MINUMUM_FARE = 10;
 
@@ -22,27 +25,32 @@ export default class Ride {
   calculateFare() {
     for (const segment of this.segments) {
       if (segment.isFirstDayOfMonth()) {
-        this.fare += segment.distance * this.FIRST_DAY_FARE;
+        let fareCalculator = new FirstDayOfMonthFareCalculator();
+        this.fare += fareCalculator.calculate(segment);
         continue;
       }
 
       if (segment.isOvernight() && segment.isSunday()) {
-        this.fare += segment.distance * this.OVERNIGHT_SUNDAY_FARE;
+        let fareCalculator = new OvernightSundayFareCalculator();
+        this.fare += fareCalculator.calculate(segment);
         continue;
       }
 
       if (segment.isOvernight() && !segment.isSunday()) {
-        this.fare += segment.distance * this.OVERNIGHT_FARE;
+        let fareCalculator = new OvernightFareCalculator();
+        this.fare += fareCalculator.calculate(segment);
         continue;
       }
 
       if (!segment.isOvernight() && !segment.isSunday()) {
-        this.fare += segment.distance * this.DAILY_FARE;
+        let fareCalculator = new NormalFareCalculator();
+        this.fare += fareCalculator.calculate(segment);
         continue;
       }
 
       if (!segment.isOvernight() && segment.isSunday()) {
-        this.fare += segment.distance * this.SUNDAY_FARE;
+        let fareCalculator = new SundayFareCalculator();
+        this.fare += fareCalculator.calculate(segment);
         continue;
       }
     }
