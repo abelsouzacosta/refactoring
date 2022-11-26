@@ -1,4 +1,5 @@
 import { Segment } from "../Segment";
+import { LongDistanceFareCalculator } from "./ LongDistanceFareCalculator";
 import { FirstDayOfMonthFareCalculator } from "./FirstDayOfMonthFareCalculator";
 import { NormalFareCalculator } from "./NormalFareCalculator";
 import { OvernightFareCalculator } from "./OvernightFareCalculator";
@@ -9,6 +10,10 @@ export class FareCalculatorFactory {
   static create(segment: Segment) {
     if (segment.isFirstDayOfMonth()) {
       return new FirstDayOfMonthFareCalculator();
+    }
+
+    if(segment.isLongDistance()) {
+      return new LongDistanceFareCalculator();
     }
 
     if (segment.isOvernight() && segment.isSunday()) {
