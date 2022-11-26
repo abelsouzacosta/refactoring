@@ -24,7 +24,7 @@ describe("Segment", () => {
     });
   });
 
-  describe("Validation Methods", () => {
+  describe("State Methods", () => {
     it("Should return true with date in the first day of month", () => {
       let segment = new Segment(10, new Date("2023-01-01T10:00:00"));
 
@@ -60,5 +60,11 @@ describe("Segment", () => {
 
       expect(segment.isOvernight()).toBe(false);
     });
+
+    it("Should return true if date is a special date", () => {
+      let segment = new Segment(10, new Date("2022-12-25T10:00:00"));
+
+      expect(segment.isSpecialDate()).toBe(true);
+    })
   });
 });
