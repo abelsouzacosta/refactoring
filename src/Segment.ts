@@ -1,4 +1,8 @@
 export class Segment {
+
+  START_OVERNIGHT = 22;
+  END_OVERNIGHT = 6;
+
   constructor(readonly distance: number, readonly date: Date) {
     if (!this.isValidDistance()) throw new Error(`Invalid Distance`);
     if (!this.isValidDate()) throw new Error(`Invalid Date`);
@@ -27,11 +31,8 @@ export class Segment {
   }
 
   public isOvernight() {
-    const START_OVERNIGHT = 22;
-    const END_OVERNIGHT = 6;
-
-    return this.date.getHours() >= START_OVERNIGHT ||
-      this.date.getHours() <= END_OVERNIGHT
+    return this.date.getHours() >= this.START_OVERNIGHT ||
+      this.date.getHours() <= this.END_OVERNIGHT
       ? true
       : false;
   }

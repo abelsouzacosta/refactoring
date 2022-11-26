@@ -60,11 +60,5 @@ describe("Segment", () => {
 
       expect(segment.isOvernight()).toBe(false);
     });
-
-    it("Should return true if date is a special date", () => {
-      let segment = new Segment(10, new Date("2022-12-25T10:00:00"));
-
-      expect(segment.isSpecialDate()).toBe(true);
-    })
   });
 });
