@@ -1,10 +1,22 @@
+import { FirstDayOfMonthFareCalculatorHandler } from "../src/handlers/FirstDayOfMonthFareCalculatorHandler";
+import { LongDistanceFareCalculatorHandler } from "../src/handlers/LongDistanceFareCalculatorHandler";
+import { NormalFareCalculatorHandler } from "../src/handlers/NormalFareCalculatorHandler";
+import { OvernightFareCalculatorHandler } from "../src/handlers/OvernightFareCalculatorHandler";
+import { OvernightrSundayFareCalculatorHandler } from "../src/handlers/OvernightSundayFareCalculatorHandler";
+import { SundayFareCalculatorHandler } from "../src/handlers/SundayFareCalculatorHandler";
 import Ride from "../src/Ride";
 
 describe("Ride", () => {
   let ride: Ride;
 
   beforeEach(() => {
-    ride = new Ride();
+    let sundayFareCalculatorHandler = new SundayFareCalculatorHandler()
+    let overnightSundayFareCalculatorHandler = new OvernightrSundayFareCalculatorHandler(sundayFareCalculatorHandler);
+    let overnightFareCalculatorHandler = new OvernightFareCalculatorHandler(overnightSundayFareCalculatorHandler);
+    let normalFareCalculatorHandler = new NormalFareCalculatorHandler(overnightFareCalculatorHandler)
+    let longDistanceFareCalculatorHanler = new LongDistanceFareCalculatorHandler(normalFareCalculatorHandler);
+    let firstDayOfMonthFareCalculatorHandler = new FirstDayOfMonthFareCalculatorHandler(longDistanceFareCalculatorHanler);
+    ride = new Ride(firstDayOfMonthFareCalculatorHandler);
   });
 
   it("Ride should be implemented", () => {
