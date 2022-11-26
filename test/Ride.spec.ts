@@ -1,5 +1,4 @@
 import Ride from "../src/Ride";
-import { Segment } from "../src/Segment";
 
 describe("Ride", () => {
   let ride: Ride;
@@ -47,4 +46,10 @@ describe("Ride", () => {
 
     expect(ride.calculateFare()).toBe(ride.MINUMUM_FARE);
   });
+
+  it('Should calculate a fare for a long distance', () => {
+    ride.addSegments(120, new Date("2022-11-21T15:00:00"));
+
+    expect(ride.calculateFare()).toBe(720)
+  })
 });

@@ -2,6 +2,7 @@ export class Segment {
 
   START_OVERNIGHT = 22;
   END_OVERNIGHT = 6;
+  LONG_DISTANCE = 90;
 
   constructor(readonly distance: number, readonly date: Date) {
     if (!this.isValidDistance()) throw new Error(`Invalid Distance`);
@@ -39,5 +40,9 @@ export class Segment {
 
   public isFirstDayOfMonth() {
     return this.date.getDate() === 1 ? true : false;
+  }
+
+  public isLongDistance() {
+    return this.distance >= this.LONG_DISTANCE ? true : false;
   }
 }

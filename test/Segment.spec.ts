@@ -65,6 +65,12 @@ describe("Segment", () => {
       let segment = new Segment(150, new Date("2022-11-27T14:00:00"));
 
       expect(segment.isLongDistance()).toBe(true);
-    })
+    });
+
+    it("Should return false if is not a long distance", () => {
+      let segment = new Segment(10, new Date("2022-11-27T14:00:00"));
+
+      expect(segment.isLongDistance()).toBe(false);
+    });
   });
 });
