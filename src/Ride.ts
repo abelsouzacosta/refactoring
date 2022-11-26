@@ -1,3 +1,4 @@
+import { FareCalculatorFactory } from "./calculators/FareCalculatorFactory";
 import { FirstDayOfMonthFareCalculator } from "./calculators/FirstDayOfMonthFareCalculator";
 import { NormalFareCalculator } from "./calculators/NormalFareCalculator";
 import { OvernightFareCalculator } from "./calculators/OvernightFareCalculator";
@@ -24,35 +25,9 @@ export default class Ride {
 
   calculateFare() {
     for (const segment of this.segments) {
-      if (segment.isFirstDayOfMonth()) {
-        let fareCalculator = new FirstDayOfMonthFareCalculator();
-        this.fare += fareCalculator.calculate(segment);
-        continue;
-      }
-
-      if (segment.isOvernight() && segment.isSunday()) {
-        let fareCalculator = new OvernightSundayFareCalculator();
-        this.fare += fareCalculator.calculate(segment);
-        continue;
-      }
-
-      if (segment.isOvernight() && !segment.isSunday()) {
-        let fareCalculator = new OvernightFareCalculator();
-        this.fare += fareCalculator.calculate(segment);
-        continue;
-      }
-
-      if (!segment.isOvernight() && !segment.isSunday()) {
-        let fareCalculator = new NormalFareCalculator();
-        this.fare += fareCalculator.calculate(segment);
-        continue;
-      }
-
-      if (!segment.isOvernight() && segment.isSunday()) {
-        let fareCalculator = new SundayFareCalculator();
-        this.fare += fareCalculator.calculate(segment);
-        continue;
-      }
+      let fareCalculator = FareCalculatorFactory.create(segment);
+      
+      this.fare += fareCalculator.calculate(segment);
     }
 
     return this.fare <= this.MINUMUM_FARE ? this.MINUMUM_FARE : this.fare;
