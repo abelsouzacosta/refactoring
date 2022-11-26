@@ -1,7 +1,7 @@
-import FareCalculator from "../interfaces/FareCalculator";
+import FareCalculatorStrategy from "../interfaces/FareCalculator";
 import { Segment } from "../Segment";
 
-export class FirstDayOfMonthFareCalculator implements FareCalculator {
+export class FirstDayOfMonthFareCalculator implements FareCalculatorStrategy {
   FARE = 1.5;
 
   calculate(segment: Segment): number {
